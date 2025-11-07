@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BannerServiceImpl implements BannerService {
@@ -77,13 +75,13 @@ public class BannerServiceImpl implements BannerService {
 
 
     @Override
-    public BannerResponseDto getBannerById(Long id) {
-        logger.info("Fetching banner with ID: {}", id);
-        Optional<BannerEntity> optionalEntity = bannerRepository.findById(id);
+    public BannerResponseDto getBannerById(Long bannerId) {
+        logger.info("Fetching banner with ID: {}", bannerId);
+        Optional<BannerEntity> optionalEntity = bannerRepository.findById(bannerId);
         if (optionalEntity.isPresent()) {
             return convertToResponseDto(optionalEntity.get());
         } else {
-            logger.warn("Banner not found with ID: {}", id);
+            logger.warn("Banner not found with ID: {}", bannerId);
             throw new RuntimeException("Banner not found");
         }
     }
@@ -100,9 +98,9 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public BannerResponseDto updateBanner(Long id, BannerRequestDto dto, List<MultipartFile> bannerFileSlides, MultipartFile bannerFileTwo, MultipartFile bannerFileThree, MultipartFile bannerFileFour) throws Exception {
-        logger.info("Updating banner with ID: {}", id);
-        Optional<BannerEntity> optionalEntity = bannerRepository.findById(id);
+    public BannerResponseDto updateBanner(Long bannerId, BannerRequestDto dto, List<MultipartFile> bannerFileSlides, MultipartFile bannerFileTwo, MultipartFile bannerFileThree, MultipartFile bannerFileFour) throws Exception {
+        logger.info("Updating banner with ID: {}", bannerId);
+        Optional<BannerEntity> optionalEntity = bannerRepository.findById(bannerId);
         if (optionalEntity.isPresent()) {
             BannerEntity entity = optionalEntity.get();
 
@@ -136,21 +134,21 @@ public class BannerServiceImpl implements BannerService {
             logger.info("Banner updated with ID: {}", updatedEntity.getBannerId());
             return convertToResponseDto(updatedEntity);
         } else {
-            logger.warn("Banner not found for update with ID: {}", id);
+            logger.warn("Banner not found for update with ID: {}", bannerId);
             throw new RuntimeException("Banner not found");
         }
     }
 
     @Override
-    public void deleteBanner(Long id) {
-        logger.info("Deleting banner with ID: {}", id);
-        bannerRepository.deleteById(id);
+    public void deleteBanner(Long bannerId) {
+        logger.info("Deleting banner with ID: {}", bannerId);
+        bannerRepository.deleteById(bannerId);
     }
 
     @Override
-    public byte[] getBannerSlideImage(Long id, int index) {
-        logger.info("Fetching slide image for banner ID: {} at index: {}", id, index);
-        Optional<BannerEntity> optionalEntity = bannerRepository.findById(id);
+    public byte[] getBannerSlideImage(Long bannerId, int index) {
+        logger.info("Fetching slide image for banner ID: {} at index: {}", bannerId, index);
+        Optional<BannerEntity> optionalEntity = bannerRepository.findById(bannerId);
         if (optionalEntity.isPresent()) {
             List<byte[]> slides = optionalEntity.get().getBannerFileSlides();
             if (index >= 0 && index < slides.size()) {
@@ -164,9 +162,9 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public byte[] getBannerFileTwoImage(Long id) {
-        logger.info("Fetching file two image for banner ID: {}", id);
-        Optional<BannerEntity> optionalEntity = bannerRepository.findById(id);
+    public byte[] getBannerFileTwoImage(Long bannerId) {
+        logger.info("Fetching file two image for banner ID: {}", bannerId);
+        Optional<BannerEntity> optionalEntity = bannerRepository.findById(bannerId);
         if (optionalEntity.isPresent()) {
             return optionalEntity.get().getBannerFileTwo();
         } else {
@@ -175,9 +173,9 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public byte[] getBannerFileThreeImage(Long id) {
-        logger.info("Fetching file three image for banner ID: {}", id);
-        Optional<BannerEntity> optionalEntity = bannerRepository.findById(id);
+    public byte[] getBannerFileThreeImage(Long bannerId) {
+        logger.info("Fetching file three image for banner ID: {}", bannerId);
+        Optional<BannerEntity> optionalEntity = bannerRepository.findById(bannerId);
         if (optionalEntity.isPresent()) {
             return optionalEntity.get().getBannerFileThree();
         } else {
@@ -186,9 +184,9 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public byte[] getBannerFileFourImage(Long id) {
-        logger.info("Fetching file four image for banner ID: {}", id);
-        Optional<BannerEntity> optionalEntity = bannerRepository.findById(id);
+    public byte[] getBannerFileFourImage(Long bannerId) {
+        logger.info("Fetching file four image for banner ID: {}", bannerId);
+        Optional<BannerEntity> optionalEntity = bannerRepository.findById(bannerId);
         if (optionalEntity.isPresent()) {
             return optionalEntity.get().getBannerFileFour();
         } else {

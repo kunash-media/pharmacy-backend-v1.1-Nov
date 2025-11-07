@@ -15,6 +15,7 @@ public class UserResponseDto {
     private String addressCountry;
     private String addressType;
 
+
     // Getters and Setters
     public Long getUserId() {
         return userId;

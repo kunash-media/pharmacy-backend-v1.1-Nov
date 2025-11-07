@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BannerResponseDto {
 
-    private Long id;
+    private Long bannerId;
 
     private String pageName;
 
@@ -17,11 +17,11 @@ public class BannerResponseDto {
     private String bannerFileFour;
 
     public Long getId() {
-        return id;
+        return bannerId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long bannerId) {
+        this.bannerId = bannerId;
     }
 
     public String getPageName() {

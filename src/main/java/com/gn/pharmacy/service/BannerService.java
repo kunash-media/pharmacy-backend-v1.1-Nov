@@ -10,21 +10,21 @@ public interface BannerService {
 
     BannerResponseDto createBanner(BannerRequestDto dto, List<MultipartFile> bannerFileSlides, MultipartFile bannerFileTwo, MultipartFile bannerFileThree, MultipartFile bannerFileFour) throws Exception;
 
-    BannerResponseDto getBannerById(Long id);
+    BannerResponseDto getBannerById(Long bannerId);
 
     List<BannerResponseDto> getAllBanners();
 
-    BannerResponseDto updateBanner(Long id, BannerRequestDto dto, List<MultipartFile> bannerFileSlides, MultipartFile bannerFileTwo, MultipartFile bannerFileThree, MultipartFile bannerFileFour) throws Exception;
+    BannerResponseDto updateBanner(Long bannerId, BannerRequestDto dto, List<MultipartFile> bannerFileSlides, MultipartFile bannerFileTwo, MultipartFile bannerFileThree, MultipartFile bannerFileFour) throws Exception;
 
-    void deleteBanner(Long id);
+    void deleteBanner(Long bannerId);
 
-    byte[] getBannerSlideImage(Long id, int index);
+    byte[] getBannerSlideImage(Long bannerId, int index);
 
-    byte[] getBannerFileTwoImage(Long id);
+    byte[] getBannerFileTwoImage(Long bannerId);
 
-    byte[] getBannerFileThreeImage(Long id);
+    byte[] getBannerFileThreeImage(Long bannerId);
 
-    byte[] getBannerFileFourImage(Long id);
+    byte[] getBannerFileFourImage(Long bannerId);
 
     BannerResponseDto getBannerByPageName(String pageName);
 }
