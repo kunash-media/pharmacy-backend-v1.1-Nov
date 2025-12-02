@@ -4,18 +4,22 @@ import com.gn.pharmacy.dto.request.OrderItemDto;
 import com.gn.pharmacy.dto.request.OrderRequestDto;
 import com.gn.pharmacy.dto.response.OrderResponseDto;
 import com.gn.pharmacy.entity.OrderEntity;
+
 import com.gn.pharmacy.entity.OrderItemEntity;
 import com.gn.pharmacy.entity.ProductEntity;
 import com.gn.pharmacy.entity.UserEntity;
 import com.gn.pharmacy.repository.OrderItemRepository;
+
 import com.gn.pharmacy.repository.OrderRepository;
 import com.gn.pharmacy.repository.ProductRepository;
 import com.gn.pharmacy.repository.UserRepository;
 import com.gn.pharmacy.service.OrderService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,6 +95,20 @@ public class OrderServiceImpl implements OrderService {
         }
         logger.info("Order created with ID: {}", savedEntity.getOrderId());
         return mapToResponseDto(savedEntity);
+    }
+
+
+    // === ADD THIS METHOD TO OrderServiceImpl.java ===
+    @Override
+    public Page<OrderResponseDto> getOrdersByUserId(Long userId, Pageable pageable) {
+        logger.info("Fetching paginated orders for user ID: {}", userId);
+
+        // Validate user exists
+        userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        Page<OrderEntity> orderPage = orderRepository.findByUser_UserId(userId, pageable);
+        return orderPage.map(this::mapToResponseDto);
     }
 
 
@@ -297,6 +315,11 @@ public class OrderServiceImpl implements OrderService {
                         itemDto.setItemOldPrice(item.getItemOldPrice());
                         itemDto.setSubtotal(item.getSubtotal());
                         itemDto.setItemName(item.getItemName());
+                        // ADD MAIN IMAGE URL
+                        if (item.getProduct() != null && item.getProduct().getProductId() != null) {
+                            String imageUrl = "/api/products/" + item.getProduct().getProductId() + "/image";
+                            itemDto.setProductMainImage(imageUrl);
+                        }
                         return itemDto;
                     })
                     .collect(Collectors.toList());

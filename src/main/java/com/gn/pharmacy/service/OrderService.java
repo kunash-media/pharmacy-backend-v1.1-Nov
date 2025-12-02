@@ -15,5 +15,7 @@ public interface OrderService {
     void deleteOrder(Long orderId);
 
     OrderResponseDto cancelOrder(Long orderId);
+
+    Page<OrderResponseDto> getOrdersByUserId(Long userId, Pageable pageable);
 }
 

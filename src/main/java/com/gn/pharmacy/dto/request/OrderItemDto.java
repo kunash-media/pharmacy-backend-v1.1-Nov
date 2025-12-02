@@ -1,9 +1,8 @@
 package com.gn.pharmacy.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderItemDto {
+
     private Long orderItemId;
     private Long productId;
     private int quantity;
@@ -11,6 +10,10 @@ public class OrderItemDto {
     private Double itemOldPrice;
     private Double subtotal;
     private String itemName;
+
+
+    // ADD THIS FIELD
+    private String productMainImage;  // URL like "/api/products/15/image"
 
     // Getters and Setters
     public OrderItemDto(){}
@@ -72,5 +75,11 @@ public class OrderItemDto {
         this.itemName = itemName;
     }
 
+    public String getProductMainImage() {
+        return productMainImage;
+    }
 
+    public void setProductMainImage(String productMainImage) {
+        this.productMainImage = productMainImage;
+    }
 }

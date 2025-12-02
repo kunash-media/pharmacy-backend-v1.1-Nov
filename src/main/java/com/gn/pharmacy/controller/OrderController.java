@@ -62,4 +62,13 @@ public class OrderController {
         logger.info("Received cancel order request for order ID: {}", orderId);
         return ResponseEntity.ok(orderService.cancelOrder(orderId));
     }
+
+    // === ADD THIS METHOD TO OrderController.java ===
+    @GetMapping("/get-order-by-userId/{userId}")
+    public ResponseEntity<Page<OrderResponseDto>> getOrdersByUserId(
+            @PathVariable Long userId,
+            Pageable pageable) {
+        logger.info("Fetching orders for user ID: {}", userId);
+        return ResponseEntity.ok(orderService.getOrdersByUserId(userId, pageable));
+    }
 }

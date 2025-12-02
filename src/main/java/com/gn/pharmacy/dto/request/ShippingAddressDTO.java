@@ -1,4 +1,7 @@
-package com.gn.pharmacy.dto.request;public class ShippingAddressDTO {
+package com.gn.pharmacy.dto.request;
+
+
+public class ShippingAddressDTO {
 
     private Long shippingId;
     private String customerPhone;
